@@ -20,7 +20,7 @@ class AsyncListener implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            KernelEvents::TERMINATE => ['onKernelTerminate', 99999]
+            KernelEvents::TERMINATE => ['onKernelTerminate', -1023]
         ];
     }
 }
