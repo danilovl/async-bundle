@@ -4,5 +4,5 @@ services:
     autoconfigure: true
     public: true
 
-  Danilovl\AsyncBundle\AsyncService:
-  Danilovl\AsyncBundle\AsyncListener:
+  Danilovl\AsyncBundle\Service\AsyncService:
+  Danilovl\AsyncBundle\EventListener\AsyncListener:
