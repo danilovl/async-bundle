@@ -2,7 +2,7 @@
 
 namespace Danilovl\AsyncBundle;
 
-use Danilovl\PermissionMiddlewareBundle\DependencyInjection\AsyncExtension;
+use Danilovl\AsyncBundle\DependencyInjection\AsyncExtension;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class AsyncBundle extends Bundle

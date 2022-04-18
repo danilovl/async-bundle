@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Danilovl\PermissionMiddlewareBundle\DependencyInjection;
+namespace Danilovl\AsyncBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
