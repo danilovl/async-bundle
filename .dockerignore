@@ -1,0 +1,8 @@
+**/.git/
+**/.gitignore
+**/docker-compose.*.yaml
+**/docker-compose.*.yml
+**/docker-compose.yaml
+**/docker-compose.yml
+**/var
+**/vendor
