@@ -8,7 +8,11 @@
 ## About ##
 
 Symfony bundle provides simple delayed function call in `AsyncListener` after symfony send response.  
- 
+
+The user gets a response faster because all unnecessary logic is processed later. For example: logging, creating rabbitmq queues or other unnecessary things.
+
+![Alt text](/.github/readme/profiler.png?raw=true "Profiler")
+
 ### Requirements 
 
   * PHP 8.1.0 or higher
