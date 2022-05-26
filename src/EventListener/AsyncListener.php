@@ -8,7 +8,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class AsyncListener implements EventSubscriberInterface
 {
-    public function __construct(private AsyncService $asyncService)
+    public function __construct(private readonly AsyncService $asyncService)
     {
     }
 
