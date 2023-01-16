@@ -7,21 +7,25 @@
 
 ## About ##
 
-Symfony bundle provides simple delayed function call in `AsyncListener` after symfony send response.  
+Symfony bundle provides simple delayed function call in `AsyncListener` after symfony send response.
 
 The user gets a response faster because all unnecessary logic is processed later. For example: logging, creating rabbitmq queues or other unnecessary things.
 
-![Alt text](/.github/readme/profiler.png?raw=true "Profiler")
+![Alt text](/.github/readme/profiler_before.png?raw=true "Profiler before")
 
-### Requirements 
+The user receives a response from the server much earlier and does not wait until unnecessary processes are finished.
 
-  * PHP 8.1.0 or higher
-  * Symfony 6.0 or higher
+![Alt text](/.github/readme/profiler_after.png?raw=true "Profiler after")
+
+### Requirements
+
+* PHP 8.2 or higher
+* Symfony 6.2 or higher
 
 ### 1. Installation
 
 Install `danilovl/async-bundle` package by Composer:
- 
+
 ``` bash
 $ composer require danilovl/async-bundle
 ```
@@ -84,10 +88,10 @@ class HomeController extends AbstractController
         }, 100, 'sendEmail');
         
         // remove all callbacks with name 'sendEmail'
-        $this->asyncService->remove(['sendEMail']);        
-        
+        $this->asyncService->remove(['sendEMail']);             
+      
         // remove all callbacks with name 'sendEmail' and priority 
-        $this->asyncService->remove(['sendEMail'], 100);    
+        $this->asyncService->remove(['sendEMail'], 100);        
         
         // remove all callbacks
         $this->asyncService->reset();
