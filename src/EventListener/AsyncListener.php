@@ -6,9 +6,9 @@ use Danilovl\AsyncBundle\Service\AsyncService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-class AsyncListener implements EventSubscriberInterface
+readonly class AsyncListener implements EventSubscriberInterface
 {
-    public function __construct(private readonly AsyncService $asyncService)
+    public function __construct(private AsyncService $asyncService)
     {
     }
 
