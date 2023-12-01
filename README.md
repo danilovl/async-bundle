@@ -20,7 +20,7 @@ The user receives a response from the server much earlier and does not wait unti
 ### Requirements
 
 * PHP 8.3 or higher
-* Symfony 6.3 or higher
+* Symfony 7.0 or higher
 
 ### 1. Installation
 
