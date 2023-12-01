@@ -20,7 +20,7 @@
         }
     },
     "require": {
-        "php": "^8.2",
+        "php": "^8.3",
         "symfony/framework-bundle": "^6.3",
         "symfony/http-kernel": "^6.3"
     },
