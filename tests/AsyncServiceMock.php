@@ -3,10 +3,13 @@
 namespace Danilovl\AsyncBundle\Tests;
 
 use Danilovl\AsyncBundle\Service\AsyncService;
+use stdClass;
 
 class AsyncServiceMock
 {
-    public const COUNTER_RESULT = ['two', 'one', 'three', 'three'];
+    public const array COUNTER_RESULT = ['two', 'one', 'three', 'three'];
+
+    /** @var stdClass&object{counter: array} $counterClass */
     public object $counterClass;
     public AsyncService $asyncService;
 
@@ -17,10 +20,12 @@ class AsyncServiceMock
 
     private function prepareAsyncService(): void
     {
-        $this->counterClass = new class {
+        /** @var stdClass&object{counter: array} $counterClass */
+        $counterClass = new class {
             public array $counter = [];
         };
 
+        $this->counterClass = $counterClass;
         $this->asyncService = new AsyncService;
 
         $this->asyncService->add(function (): void {

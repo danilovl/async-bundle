@@ -26,10 +26,11 @@ class AsyncListenerTest extends TestCase
     public function testOnKernelTerminate(): void
     {
         $terminateEventMock = $this->createMock(KernelEvent::class);
-        $counterClass = $this->asyncServiceMock->counterClass;
+        /** @var object{counter: array} $class */
+        $class = $this->asyncServiceMock->counterClass;
 
         $this->dispatcher->dispatch($terminateEventMock, KernelEvents::TERMINATE);
 
-        $this->assertEquals(AsyncServiceMock::COUNTER_RESULT, $counterClass->counter);
+        $this->assertEquals(AsyncServiceMock::COUNTER_RESULT, $class->counter);
     }
 }
