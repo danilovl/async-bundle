@@ -27,7 +27,7 @@ The user receives a response from the server much earlier and does not wait unti
 Install `danilovl/async-bundle` package by Composer:
 
 ``` bash
-$ composer require danilovl/async-bundle
+composer require danilovl/async-bundle
 ```
 Add the `AsyncBundle` to your application's bundles if does not add automatically:
 
