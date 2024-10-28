@@ -12,6 +12,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 class AsyncListenerTest extends TestCase
 {
     private EventDispatcher $dispatcher;
+
     private AsyncServiceMock $asyncServiceMock;
 
     protected function setUp(): void

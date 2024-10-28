@@ -68,6 +68,6 @@ class AsyncService
 
     private function sort(): void
     {
-        usort($this->container, static fn(CallableModel $first, CallableModel $second): int => $second->priority <=> $first->priority);
+        usort($this->container, static fn (CallableModel $first, CallableModel $second): int => $second->priority <=> $first->priority);
     }
 }

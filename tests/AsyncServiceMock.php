@@ -11,6 +11,7 @@ class AsyncServiceMock
 
     /** @var stdClass&object{counter: array} $counterClass */
     public object $counterClass;
+
     public AsyncService $asyncService;
 
     public function __construct()
@@ -21,7 +22,7 @@ class AsyncServiceMock
     private function prepareAsyncService(): void
     {
         /** @var stdClass&object{counter: array} $counterClass */
-        $counterClass = new class {
+        $counterClass = new class() {
             public array $counter = [];
         };
 

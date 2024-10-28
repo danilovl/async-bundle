@@ -12,7 +12,7 @@ class AsyncServiceTest extends TestCase
         $asyncServiceMock = $this->prepareAsyncService();
         $asyncService = $asyncServiceMock->asyncService;
 
-        $this->assertEquals(4, count($asyncService->getContainer()));
+        $this->assertCount(4, $asyncService->getContainer());
     }
 
     public function testReset(): void
@@ -21,7 +21,7 @@ class AsyncServiceTest extends TestCase
         $asyncService = $asyncServiceMock->asyncService;
         $asyncService->reset();
 
-        $this->assertEquals(0, count($asyncService->getContainer()));
+        $this->assertCount(0, $asyncService->getContainer());
     }
 
     public function testRemove(): void
@@ -30,16 +30,16 @@ class AsyncServiceTest extends TestCase
         $asyncService = $asyncServiceMock->asyncService;
 
         $asyncService->remove(['one']);
-        $this->assertEquals(3, count($asyncService->getContainer()));
+        $this->assertCount(3, $asyncService->getContainer());
 
         $asyncService->remove(['two']);
-        $this->assertEquals(2, count($asyncService->getContainer()));
+        $this->assertCount(2, $asyncService->getContainer());
 
         $asyncService->remove(['three'], 10);
-        $this->assertEquals(2, count($asyncService->getContainer()));
+        $this->assertCount(2, $asyncService->getContainer());
 
         $asyncService->remove(['three'], 1);
-        $this->assertEquals(0, count($asyncService->getContainer()));
+        $this->assertCount(0, $asyncService->getContainer());
     }
 
     public function testCall(): void

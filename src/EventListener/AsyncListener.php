@@ -8,9 +8,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 readonly class AsyncListener implements EventSubscriberInterface
 {
-    public function __construct(private AsyncService $asyncService)
-    {
-    }
+    public function __construct(private AsyncService $asyncService) {}
 
     public function onKernelTerminate(): void
     {
@@ -20,7 +18,7 @@ readonly class AsyncListener implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            KernelEvents::TERMINATE => ['onKernelTerminate', -1023]
+            KernelEvents::TERMINATE => ['onKernelTerminate', -1_023]
         ];
     }
 }
