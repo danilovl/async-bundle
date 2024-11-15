@@ -48,7 +48,6 @@ class AsyncServiceTest extends TestCase
         $asyncService = $asyncServiceMock->asyncService;
         $asyncService->call();
 
-        /** @var object{counter: array} $class */
         $class = $asyncServiceMock->counterClass;
 
         $this->assertEquals(AsyncServiceMock::COUNTER_RESULT, $class->counter);
