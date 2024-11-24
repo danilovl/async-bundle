@@ -12,7 +12,7 @@ class CallableModel
 
     public ?string $name;
 
-    public function __construct(callable $callable, int $priority = 0, string $name = null)
+    public function __construct(callable $callable, int $priority = 0, ?string $name = null)
     {
         $this->callable = $callable(...);
         $this->priority = $priority;

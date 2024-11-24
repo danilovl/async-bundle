@@ -11,7 +11,7 @@ class AsyncService
      */
     private array $container = [];
 
-    public function add(callable $callable, int $priority = 0, string $name = null): void
+    public function add(callable $callable, int $priority = 0, ?string $name = null): void
     {
         $this->container[] = new CallableModel($callable, $priority, $name);
     }
@@ -31,7 +31,7 @@ class AsyncService
         $this->container = [];
     }
 
-    public function remove(array $names, int $priority = null): void
+    public function remove(array $names, ?int $priority = null): void
     {
         foreach ($this->container as $key => $callable) {
             $removeCallable = false;
