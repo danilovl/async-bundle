@@ -2,8 +2,13 @@
 
 namespace Danilovl\AsyncBundle\Tests\Service;
 
+use Danilovl\AsyncBundle\Event\{
+    AsyncPreCallEvent,
+    AsyncPostCallEvent
+};
 use Danilovl\AsyncBundle\Tests\AsyncServiceMock;
 use PHPUnit\Framework\TestCase;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class AsyncServiceTest extends TestCase
 {
@@ -53,8 +58,36 @@ class AsyncServiceTest extends TestCase
         $this->assertEquals(AsyncServiceMock::COUNTER_RESULT, $class->counter);
     }
 
+    public function testCallWithEvents(): void
+    {
+        $eventDispatcher = $this->createMock(EventDispatcherInterface::class);
+
+        $matcher = $this->exactly(2);
+        $eventDispatcher->expects($matcher)
+            ->method('dispatch')
+            ->willReturnCallback(function (object $event, ?string $eventName = null) use ($matcher): object {
+                [$expectedClass, $expectedName] = match ($matcher->numberOfInvocations()) {
+                    1 => [AsyncPreCallEvent::class, null],
+                    2 => [AsyncPostCallEvent::class, null],
+                    default => $this->fail('Unexpected invocation'),
+                };
+
+                $this->assertInstanceOf($expectedClass, $event);
+                $this->assertEquals($expectedName, $eventName);
+
+                return $event;
+            });
+
+        $asyncServiceMock = new AsyncServiceMock($eventDispatcher);
+        $asyncService = $asyncServiceMock->asyncService;
+
+        $asyncService->call();
+    }
+
     private function prepareAsyncService(): AsyncServiceMock
     {
-        return new AsyncServiceMock;
+        $eventDispatcher = $this->createMock(EventDispatcherInterface::class);
+
+        return new AsyncServiceMock($eventDispatcher);
     }
 }

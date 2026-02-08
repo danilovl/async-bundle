@@ -3,6 +3,7 @@
 namespace Danilovl\AsyncBundle\Tests;
 
 use Danilovl\AsyncBundle\Service\AsyncService;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class AsyncServiceMock
 {
@@ -12,15 +13,15 @@ class AsyncServiceMock
 
     public AsyncService $asyncService;
 
-    public function __construct()
+    public function __construct(EventDispatcherInterface $eventDispatcher)
     {
-        $this->prepareAsyncService();
+        $this->prepareAsyncService($eventDispatcher);
     }
 
-    private function prepareAsyncService(): void
+    private function prepareAsyncService(EventDispatcherInterface $eventDispatcher): void
     {
         $this->counterClass = new AsyncClassMock;
-        $this->asyncService = new AsyncService;
+        $this->asyncService = new AsyncService($eventDispatcher);
 
         $this->asyncService->add(function (): void {
             $this->counterClass->counter[] = 'one';

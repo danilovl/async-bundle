@@ -2,7 +2,12 @@
 
 namespace Danilovl\AsyncBundle\Service;
 
+use Danilovl\AsyncBundle\Event\{
+    AsyncPostCallEvent,
+    AsyncPreCallEvent
+};
 use Danilovl\AsyncBundle\Model\CallableModel;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class AsyncService
 {
@@ -10,6 +15,8 @@ class AsyncService
      * @var CallableModel[]
      */
     private array $container = [];
+
+    public function __construct(private readonly EventDispatcherInterface $eventDispatcher) {}
 
     public function add(callable $callable, int $priority = 0, ?string $name = null): void
     {
@@ -52,6 +59,8 @@ class AsyncService
 
     public function call(): void
     {
+        $this->eventDispatcher->dispatch(new AsyncPreCallEvent);
+
         call:
         $this->sort();
 
@@ -64,6 +73,8 @@ class AsyncService
         if (!$this->isEmpty()) {
             goto call;
         }
+
+        $this->eventDispatcher->dispatch(new AsyncPostCallEvent);
     }
 
     private function sort(): void

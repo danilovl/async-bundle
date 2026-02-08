@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpKernel\Event\KernelEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class AsyncListenerTest extends TestCase
 {
@@ -17,7 +18,8 @@ class AsyncListenerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->asyncServiceMock = new AsyncServiceMock;
+        $eventDispatcher = $this->createMock(EventDispatcherInterface::class);
+        $this->asyncServiceMock = new AsyncServiceMock($eventDispatcher);
         $asyncListener = new AsyncListener($this->asyncServiceMock->asyncService);
 
         $this->dispatcher = new EventDispatcher;
