@@ -8,9 +8,13 @@ use Danilovl\AsyncBundle\Event\{
 };
 use Danilovl\AsyncBundle\Model\CallableModel;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\Service\ResetInterface;
+use LogicException;
 
-class AsyncService
+class AsyncService implements ResetInterface
 {
+    public const int MAX_CALL_ROUNDS = 100;
+
     /**
      * @var CallableModel[]
      */
@@ -61,17 +65,25 @@ class AsyncService
     {
         $this->eventDispatcher->dispatch(new AsyncPreCallEvent);
 
-        call:
-        $this->sort();
+        try {
+            $round = 0;
 
-        foreach ($this->container as $key => $callable) {
-            ($callable->callable)();
+            while (!$this->isEmpty()) {
+                if (++$round > self::MAX_CALL_ROUNDS) {
+                    throw new LogicException(sprintf('Async call rounds limit (%d) exceeded.', self::MAX_CALL_ROUNDS));
+                }
 
-            unset($this->container[$key]);
-        }
+                $this->sort();
 
-        if (!$this->isEmpty()) {
-            goto call;
+                $callables = $this->container;
+                $this->container = [];
+
+                foreach ($callables as $callable) {
+                    ($callable->callable)();
+                }
+            }
+        } finally {
+            $this->reset();
         }
 
         $this->eventDispatcher->dispatch(new AsyncPostCallEvent);

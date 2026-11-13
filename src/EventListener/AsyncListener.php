@@ -8,6 +8,9 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 readonly class AsyncListener implements EventSubscriberInterface
 {
+    private const string CONSOLE_TERMINATE = 'console.terminate';
+    private const string WORKER_MESSAGE_HANDLED = 'Symfony\\Component\\Messenger\\Event\\WorkerMessageHandledEvent';
+
     public function __construct(private AsyncService $asyncService) {}
 
     public function onKernelTerminate(): void
@@ -18,7 +21,9 @@ readonly class AsyncListener implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            KernelEvents::TERMINATE => ['onKernelTerminate', -1_023]
+            KernelEvents::TERMINATE => ['onKernelTerminate', -1_023],
+            self::CONSOLE_TERMINATE => ['onKernelTerminate', -1_023],
+            self::WORKER_MESSAGE_HANDLED => ['onKernelTerminate', -1_023]
         ];
     }
 }
